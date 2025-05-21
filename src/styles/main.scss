@@ -1,0 +1,35 @@
+// src/styles/main.scss
+@use './variables' as *;
+@use '../components/Header/header' as *;
+@use '../components/EmployeeTable/employee-table' as *;
+@use '../pages/CreateEmployee/create-employee' as *;
+@use "../components/DatePicker/datepicker" as *;
+@use "tailwindcss" as *;
+@plugin "daisyui";
+
+.react-select__control {
+  border-radius: $input-radius;
+  border: 1px solid #ccc;
+  min-height: 40px;
+}
+
+.react-select__single-value {
+  color: #333;
+}
+
+.react-select__menu {
+  z-index: 10;
+}
+.react-select__control {
+  border-radius: $input-radius;
+  border: 1px solid #ccc;
+  min-height: 40px;
+}
+
+.react-select__single-value {
+  color: #333;
+}
+
+.react-select__menu {
+  z-index: 10;
+}

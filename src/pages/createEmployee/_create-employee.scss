@@ -1,0 +1,44 @@
+.create-employee {
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    color: #73842c;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  form {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 600px;
+
+    input,
+    .react-datepicker-wrapper,
+    .react-select__control {
+      width: 100%;
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #73842c;
+        box-shadow: 0 0 0 2px rgba(115, 132, 44, 0.2);
+      }
+    }
+
+    label {
+      font-weight: 500;
+      color: #444;
+    }
+
+    .btn {
+      margin-top: 1rem;
+    }
+  }
+}
