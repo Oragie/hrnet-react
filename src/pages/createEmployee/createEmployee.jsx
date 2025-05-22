@@ -3,8 +3,10 @@ import Select from "react-select";
 import states from "../../assets/states/states";
 import departments from "../../assets/departments/departments";
 import DatePicker from "react-datepicker";
+import CustomInput from "../../components/CustomInput";
 import "react-datepicker/dist/react-datepicker.css";
 import useEmployeeStore from "../../store/useEmployeeStore";
+import { subYears } from "date-fns";
 import { Modal } from "@oragie/react-modal-lib";
 import acceptIcon from "../../assets/img/accept.png";
 import "./_create-employee.scss";
@@ -102,11 +104,16 @@ function CreateEmployee() {
               <DatePicker
                 selected={employee.dateOfBirth}
                 onChange={(date) => handleDateChange("dateOfBirth", date)}
-                placeholderText="mm/dd/yyyy"
-                dateFormat="mm/dd/yyyy"
+                customInput={
+                  <CustomInput placeholder="Date of Birth" name="dateOfBirth" />
+                }
                 showYearDropdown
+                dateFormat="MM/dd/yyyy"
+                maxDate={subYears(new Date(), 16)}
+                openToDate={subYears(new Date(), 16)}
                 required
               />
+
               <label>Select Date of Birth</label>
             </div>
 
@@ -136,27 +143,36 @@ function CreateEmployee() {
 
         <fieldset className="address-box">
           <legend>Address</legend>
-          <div className="floating-label">
-            <input
-              name="street"
-              type="text"
-              value={employee.street}
-              onChange={handleInputChange}
-              required
-            />
-            <label htmlFor="street">Street</label>
+
+          {/* Ligne 1 : Street seule */}
+          <div className="form-row row-full-width">
+            <div
+              className={`floating-label ${employee.street ? "active" : ""}`}
+            >
+              <input
+                name="street"
+                type="text"
+                value={employee.street}
+                onChange={handleInputChange}
+                required
+                placeholder="Street"
+              />
+              <label htmlFor="street">Street</label>
+            </div>
           </div>
-          <div className="floating-label">
-            <input
-              name="city"
-              type="text"
-              value={employee.city}
-              onChange={handleInputChange}
-              required
-            />
-            <label htmlFor="city">City</label>
-          </div>
-          <div className="form-row">
+
+          {/* Ligne 2 : City - State - ZipCode */}
+          <div className="address-three-columns">
+            <div className={`floating-label ${employee.city ? "active" : ""}`}>
+              <input
+                name="city"
+                type="text"
+                value={employee.city}
+                onChange={handleInputChange}
+                required
+              />
+              <label htmlFor="city">City</label>
+            </div>
             <div className="floating-label select-wrapper">
               <Select
                 options={states}
@@ -165,7 +181,9 @@ function CreateEmployee() {
                 classNamePrefix="react-select"
               />
             </div>
-            <div className="floating-label">
+            <div
+              className={`floating-label ${employee.zipCode ? "active" : ""}`}
+            >
               <input
                 name="zipCode"
                 type="text"
@@ -180,7 +198,7 @@ function CreateEmployee() {
 
         <button type="submit" className="submit-button">
           <img
-            src="/src/assets/img/savedisk.png"
+            src="/src/assets/img/savedisk.svg"
             alt="Save"
             className="btn-icon"
           />{" "}

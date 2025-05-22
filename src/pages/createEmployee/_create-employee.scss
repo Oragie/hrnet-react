@@ -22,91 +22,115 @@
   }
 
   fieldset {
-  border: 1px solid $green-primary;
-  border-radius: $input-radius;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  background-color: color.adjust($dark-surface, $lightness: 3%);
-
-  legend {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: $green-primary;
+    border: 1px solid $green-primary;
+    border-radius: $input-radius;
+    padding: 1.5rem 2rem;
     margin-bottom: 1rem;
-    padding: 0 0.5rem;
-  }
-}
+    background-color: color.adjust($dark-surface, $lightness: 3%);
 
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: $green-primary;
+      margin-bottom: 1rem;
+      padding: 0 0.5rem;
+    }
+  }
 
   .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; 
-  gap: 1.5rem;
-  padding: 0 1rem;
-}
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
 
-.row-two-columns {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
-  column-gap: 1.5rem; // ➕ espace entre les inputs
-  margin-bottom: 1.5rem;
+  .row-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
+    column-gap: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    .floating-label:nth-child(1) {
+      grid-column: 2;
+    }
+
+    .floating-label:nth-child(2) {
+      grid-column: 4;
+    }
+  }
+
+  .row-three-columns,
+  .address-three-columns {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr 1fr 2fr 1fr;
+    column-gap: 1.5rem;
+    margin-top: 1.5rem;
+
+    .floating-label:nth-child(1),
+    .select-wrapper:nth-child(1) {
+      grid-column: 2;
+    }
+
+    .floating-label:nth-child(2),
+    .select-wrapper:nth-child(2) {
+      grid-column: 4;
+    }
+
+    .floating-label:nth-child(3),
+    .select-wrapper:nth-child(3) {
+      grid-column: 6;
+    }
+  }
 
   .floating-label {
     position: relative;
-    width: 100%;
-  }
+    flex: 1;
+    min-width: 220px;
 
-  .floating-label:nth-child(1) {
-    grid-column: 2;
-  }
+    input,
+    .react-datepicker-wrapper input {
+      background-color: $dark-surface;
+      color: white;
+      border: 1px solid #555;
+      border-radius: $input-radius;
+      padding: 1.8rem 0.75rem 0.6rem;
+      font-size: 1rem;
+      width: 100%;
 
-  .floating-label:nth-child(2) {
-    grid-column: 4;
-  }
+      &::placeholder {
+        color: transparent;
+      }
 
-  input,
-  .react-datepicker-wrapper input {
-    background-color: $dark-surface;
-    color: white;
-    border: 1px solid #555;
-    border-radius: $input-radius;
-    padding: 1.8rem 0.75rem 0.6rem;
-    font-size: 1rem;
-    width: 100%;
-
-    &::placeholder {
-      color: transparent;
+      &:focus {
+        border-color: $green-primary;
+        outline: none;
+      }
     }
 
-    &:focus {
-      border-color: $green-primary;
-      outline: none;
+    label {
+      position: absolute;
+      top: 1.2rem;
+      left: 0.75rem;
+      color: $green-primary;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background-color: $dark-surface;
+      padding: 0 0.25rem;
+    }
+
+    &.active label,
+    input:focus + label,
+    input:not(:placeholder-shown) + label,
+    .react-datepicker-wrapper input:focus + label,
+    .react-datepicker-wrapper input:not(:placeholder-shown) + label {
+      top: 0.2rem;
+      left: 0.6rem;
+      font-size: 0.75rem;
+      color: $green-primary;
     }
   }
-
-  label {
-    position: absolute;
-    top: 1.2rem;
-    left: 0.75rem;
-    color: #aaa;
-    font-size: 1rem;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    background-color: $dark-surface;
-    padding: 0 0.25rem;
-  }
-
-  .floating-label.active label,
-  .floating-label input:focus + label,
-  .floating-label input:not(:placeholder-shown) + label {
-    top: 0.2rem;
-    left: 0.6rem;
-    font-size: 0.75rem;
-    color: $green-primary;
-  }
-}
-
 
   .select-wrapper {
     flex: 1;
@@ -132,12 +156,6 @@
       border-color: $green-primary;
     }
   }
-fieldset {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-  
 
   .submit-button {
     display: flex;
@@ -168,5 +186,44 @@ fieldset {
       width: 20px;
       height: 20px;
     }
+  }
+
+  .row-full-width {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    .floating-label {
+      grid-column: 2;
+      width: 100%;
+    }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px $dark-surface inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .react-datepicker__header {
+    background-color: $green-primary;
+    border-bottom: none;
+  }
+  
+
+  .react-datepicker__current-month,
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    color: $green-primary;
+  }
+
+  .react-datepicker__day--selected,
+  .react-datepicker__day--keyboard-selected {
+    background-color: color.scale($green-primary, $lightness: -10%);
+    color: $green-primary;
+  }
+
+  .react-datepicker__day--today {
+    border: 1px solid $green-primary;
   }
 }
