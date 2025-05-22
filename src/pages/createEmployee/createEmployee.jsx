@@ -7,8 +7,8 @@ import { Modal } from "@oragie/react-modal-lib";
 import states from "../../assets/states/states";
 import departments from "../../assets/departments/departments";
 import useEmployeeStore from "../../store/useEmployeeStore";
-
-import saveIcon from "../../assets/img/savedisk.png";
+import acceptIcon from "../../assets/img/accept.png";
+import saveIcon from "../../assets/img/savedisk.svg";
 import "./_create-employee.scss";
 
 function CreateEmployee() {
@@ -132,8 +132,17 @@ function CreateEmployee() {
       <Modal
         isOpen={showModal}
         closeModal={() => setShowModal(false)}
-        title="Employee Created"
-        message="The employee has been successfully added!"
+        title="Employee created"
+        message={
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <img
+              src={acceptIcon}
+              alt="Success"
+              style={{ width: "24px", height: "24px" }}
+            />
+            <span>The employee has been successfully added!</span>
+          </div>
+        }
       />
     </div>
   );

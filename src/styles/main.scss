@@ -1,6 +1,7 @@
 // src/styles/main.scss
 @use './variables' as *;
 @use '../components/Header/header' as *;
+@use "../components/Modal/modal" as *;
 @use '../components/EmployeeTable/employee-table' as *;
 @use '../pages/CreateEmployee/create-employee' as *;
 @use "../components/DatePicker/datepicker" as *;

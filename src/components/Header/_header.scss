@@ -1,15 +1,19 @@
 @use "../../styles/variables" as *;
 
 .hrnet-header {
-  background-color: #f9f9f9;
-  padding: 2rem 100px;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1440px;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  background-color: $dark-surface;
+  border-bottom: 1px solid #333;
+  padding: 1.5rem 0;
+
+  .hrnet-info {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 
   .hrnet-left {
     display: flex;
@@ -59,15 +63,7 @@
         height: 20px;
       }
 
-      &:hover {
-        background-color: $green-primary;
-        color: white;
-
-        .nav-icon {
-          filter: brightness(0) invert(1);
-        }
-      }
-
+      &:hover,
       &.active {
         background-color: $green-primary;
         color: white;
@@ -80,13 +76,10 @@
   }
 
   @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 2rem;
-
-    .hrnet-left {
-      justify-content: center;
-      margin-bottom: 1rem;
+    .hrnet-info {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
     }
 
     .hrnet-nav {

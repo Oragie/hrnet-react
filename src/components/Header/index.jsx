@@ -7,22 +7,24 @@ import "./_header.scss";
 function Header() {
   return (
     <header className="hrnet-header">
-      <div className="hrnet-left">
-        <NavLink to="/" className="hrnet-link">
-          <img src={logo} alt="HRNet Logo" className="hrnet-logo" />
-          <h1 className="hrnet-title">HRNET</h1>
-        </NavLink>
+      <div className="hrnet-info">
+        <div className="hrnet-left">
+          <NavLink to="/" className="hrnet-link">
+            <img src={logo} alt="HRNet Logo" className="hrnet-logo" />
+            <h1 className="hrnet-title">HRNET</h1>
+          </NavLink>
+        </div>
+        <nav className="hrnet-nav">
+          <NavLink to="/" className="nav-button">
+            <img src={iconAdd} alt="Add" className="nav-icon" />
+            Add New Employee
+          </NavLink>
+          <NavLink to="/employees" className="nav-button">
+            <img src={iconList} alt="List" className="nav-icon" />
+            Employee List
+          </NavLink>
+        </nav>
       </div>
-      <nav className="hrnet-nav">
-        <NavLink to="/" className="nav-button">
-          <img src={iconAdd} alt="Add" className="nav-icon" />
-          Add New Employee
-        </NavLink>
-        <NavLink to="/employees" className="nav-button">
-          <img src={iconList} alt="List" className="nav-icon" />
-          Employee List
-        </NavLink>
-      </nav>
     </header>
   );
 }
