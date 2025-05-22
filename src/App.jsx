@@ -3,6 +3,7 @@ import CreateEmployee from "./pages/createEmployee/createEmployee";
 import EmployeeList from "./pages/employeeList/employeeList";
 import NotFound from "./pages/notFound/404";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/employees" element={<EmployeeList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

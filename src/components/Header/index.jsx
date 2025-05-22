@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/img/logo_HRNet.png";
+import logo from "../../assets/img/logoHRNet_nobg.webp";
 import iconAdd from "../../assets/img/new-employee.png";
 import iconList from "../../assets/img/List.png";
 import "./_header.scss";
