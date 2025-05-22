@@ -1,44 +1,94 @@
-.create-employee {
-  padding: 2rem;
+@use "../../styles/variables" as *;
 
-  h2 {
-    margin-bottom: 1.5rem;
-    color: #73842c;
+.create-employee {
+  max-width: 1240px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: $dark-surface;
+  color: $dark-text;
+  border-radius: 12px;
+  border: 1px solid $dark-border;
+
+  .form-title {
+    text-align: center;
     font-size: 2rem;
-    font-weight: 600;
+    margin-bottom: 2rem;
+    color: $green-primary;
   }
 
-  form {
-    display: grid;
-    gap: 1.25rem;
-    max-width: 600px;
+  .employee-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-    input,
-    .react-datepicker-wrapper,
-    .react-select__control {
-      width: 100%;
-    }
+    fieldset.section {
+      border: 1px solid $dark-border;
+      border-radius: 10px;
+      padding: 1rem;
+      background-color: $dark-bg;
 
-    input {
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 0.5rem;
-      font-size: 1rem;
+      legend {
+        color: $green-primary;
+        font-weight: bold;
+        padding: 0 10px;
+        font-size: 1.2rem;
+      }
 
-      &:focus {
-        outline: none;
-        border-color: #73842c;
-        box-shadow: 0 0 0 2px rgba(115, 132, 44, 0.2);
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        input, .react-datepicker-wrapper, .select-wrapper {
+          flex: 1;
+          min-width: 180px;
+
+          input, .react-select__control {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: $input-radius;
+            border: 1px solid $dark-border;
+            background-color: $dark-surface;
+            color: $dark-text;
+          }
+
+          label {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-weight: bold;
+          }
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: $input-radius;
+        border: 1px solid $dark-border;
+        background-color: $dark-surface;
+        color: $dark-text;
       }
     }
 
-    label {
-      font-weight: 500;
-      color: #444;
-    }
-
-    .btn {
+    .save-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
       margin-top: 1rem;
+      padding: 0.8rem 1.5rem;
+      background-color: $green-primary;
+      color: white;
+      border: none;
+      border-radius: $input-radius;
+      font-size: 1rem;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }
