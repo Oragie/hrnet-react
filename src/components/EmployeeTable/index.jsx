@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { flexRender } from "@tanstack/react-table";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -20,15 +21,35 @@ function EmployeeTable() {
     () => [
       columnHelper.accessor("firstName", { header: "First Name" }),
       columnHelper.accessor("lastName", { header: "Last Name" }),
-      columnHelper.accessor("startDate", { header: "Start Date" }),
+      columnHelper.accessor("startDate", {
+        header: "Start Date",
+        cell: (info) =>
+          info.getValue()
+            ? new Date(info.getValue()).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+            : "",
+      }),
       columnHelper.accessor("department", { header: "Department" }),
-      columnHelper.accessor("dateOfBirth", { header: "Date of Birth" }),
+      columnHelper.accessor("dateOfBirth", {
+        header: "Date of Birth",
+        cell: (info) =>
+          info.getValue()
+            ? new Date(info.getValue()).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+            : "",
+      }),
       columnHelper.accessor("street", { header: "Street" }),
       columnHelper.accessor("city", { header: "City" }),
       columnHelper.accessor("state", { header: "State" }),
       columnHelper.accessor("zipCode", { header: "Zip Code" }),
     ],
-    []
+    [columnHelper]
   );
 
   // Global filtering BEFORE passing to useReactTable
@@ -96,7 +117,12 @@ function EmployeeTable() {
               table.getRowModel().rows.map((row) => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>{cell.getValue()}</td>
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
                   ))}
                 </tr>
               ))
@@ -116,6 +142,7 @@ function EmployeeTable() {
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>
+          <option value={100}>100</option>
         </select>
         <span>
           {table.getState().pagination.pageIndex * pageSize + 1}-

@@ -4,7 +4,7 @@
 .create-employee {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem;
   color: white;
 
   .form-title {
@@ -12,7 +12,7 @@
     color: $green-primary;
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   form {
@@ -25,14 +25,14 @@
     border: 1px solid $green-primary;
     border-radius: $input-radius;
     padding: 1.5rem 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: -0.5rem;
     background-color: color.adjust($dark-surface, $lightness: 3%);
 
     legend {
       font-size: 1.2rem;
       font-weight: bold;
       color: $green-primary;
-      margin-bottom: 1rem;
+      margin-bottom: 0rem;
       padding: 0 0.5rem;
     }
   }
@@ -130,35 +130,37 @@
   }
 
   .submit-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: 2px solid $green-primary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $green-primary;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  gap: 0.6rem;
+  transition: background 0.2s, color 0.2s;
+  align-self: center;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    background: color.adjust($green-primary, $lightness: -20%);
     color: $green-primary;
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: $input-radius;
-    gap: 0.6rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    align-self: center;
-
-    &:hover {
-      background-color: $green-primary;
-      color: white;
-
-      .btn-icon {
-        filter: brightness(0) invert(1);
-      }
-    }
 
     .btn-icon {
-      width: 20px;
-      height: 20px;
+      filter: brightness(0.7); // juste plus sombre au survol
     }
   }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+    transition: filter 0.2s;
+  }
+}
 
   .row-full-width {
     display: grid;

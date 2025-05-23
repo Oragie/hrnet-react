@@ -2,91 +2,105 @@
 @use "../../styles/variables" as *;
 
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
 }
 
-.modal-content {
-  background-color: $dark-surface;
-  color: $dark-text;
-  border-radius: 16px;
-  padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 480px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  text-align: center;
-
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: $green-primary;
-  }
-
-  p, span {
-    font-size: 1rem;
-  }
-
-  button {
-    margin-top: 1.5rem;
-    background-color: $green-primary;
-    color: $dark-surface;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: $input-radius;
-    cursor: pointer;
-    font-weight: bold;
-
-    &:hover {
-      background-color: color.adjust($green-primary, $lightness: -10%);
-      color: $dark-text;
-    }
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .modal-success {
+  background: $dark-surface;
+  border-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  min-width: 340px;
+  min-height: 240px; 
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start; 
+  height: 100%; 
+}
 
-  .modal-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1rem;
-  }
+@keyframes slideIn {
+  from { transform: translateY(-40px) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
 
-  h2 {
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $dark-text;
+  width: 100%;
+}
+
+.modal-icon {
+  width: 4rem;
+  height: 4rem;
+  margin-left: 0.5rem;
+}
+
+.modal-close-x {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: $green-primary;
+  border: none;
+  border-radius: 8px;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.7rem;
+  color: #fff; // écriture blanche de base
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: color.adjust($green-primary, $lightness: -20%);
     color: $green-primary;
-    font-size: 1.7rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
   }
+}
 
-  .modal-message {
+.modal-message {
+  text-align: center;
+  color: $green-light;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+
+.modal-close-btn {
+  margin-top: auto; // Pousse le bouton en bas
+  margin-bottom: -1rem;
+  display: block;
+  background: $green-primary;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: color.adjust($green-primary, $lightness: -20%);
     color: $green-primary;
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .modal-recap {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    color: $dark-text;
-  }
-
-  .modal-close-btn {
-    background-color: $green-primary;
-    color: $dark-surface;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover {
-      background-color: color.adjust($green-primary, $lightness: -10%);
-      color: $dark-text;
-    }
   }
 }

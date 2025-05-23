@@ -19,10 +19,11 @@ const useEmployeeStore = create((set) => ({
     state: "",
     zipCode: "",
   },
-  setEmployeeField: (field, value) =>
-    set((state) => ({
+  setEmployeeField: (field, value) => {
+    return set((state) => ({
       employee: { ...state.employee, [field]: value },
-    })),
+    }));
+  },
   addEmployee: () =>
     set((state) => {
       const updated = [...state.employees, state.employee];

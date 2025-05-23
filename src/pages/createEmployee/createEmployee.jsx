@@ -20,7 +20,6 @@ function CreateEmployee() {
   };
 
   const handleDateChange = (field, date) => {
-    console.log("DatePicker value:", date, typeof date);
     setEmployeeField(field, date);
   };
 
