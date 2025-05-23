@@ -1,5 +1,5 @@
 import CustomModal from "./index";
-import partyIcon from "../../assets/img/emojii_festif_animated.svg";
+import partyIcon from "../../assets/img/party.png";
 import "../../components/Modal/_modal.scss";
 
 function EmployeeSuccessModal({ isOpen, onClose, employee }) {

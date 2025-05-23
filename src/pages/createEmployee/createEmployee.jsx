@@ -1,15 +1,14 @@
 import { useState } from "react";
-import Select from "react-select";
+import CustomInput from "../../components/CustomInput/CustomInput";
 import states from "../../assets/states/states";
 import departments from "../../assets/departments/departments";
 import DatePickerField from "../../components/DatePicker";
+import SelectField from "../../components/SelectField";
 import EmployeeSuccessModal from "../../components/Modal/EmployeeSuccessModal";
-import CustomInput from "../../components/CustomInput";
 import "react-datepicker/dist/react-datepicker.css";
 import useEmployeeStore from "../../store/useEmployeeStore";
 import { subYears } from "date-fns";
-import { Modal } from "@oragie/react-modal-lib";
-import acceptIcon from "../../assets/img/accept.png";
+
 import "./_create-employee.scss";
 
 function CreateEmployee() {
@@ -21,6 +20,7 @@ function CreateEmployee() {
   };
 
   const handleDateChange = (field, date) => {
+    console.log("DatePicker value:", date, typeof date);
     setEmployeeField(field, date);
   };
 
@@ -61,6 +61,14 @@ function CreateEmployee() {
     }
   };
 
+  const stateOptions = states.map((st) => ({
+    value: st.abbreviation,
+    label: st.name,
+  }));
+
+  const [isDateOfBirthFocused, setIsDateOfBirthFocused] = useState(false);
+  const [isStartDateFocused, setIsStartDateFocused] = useState(false);
+
   return (
     <div className="create-employee container">
       <h2 className="form-title">Create Employee</h2>
@@ -68,10 +76,11 @@ function CreateEmployee() {
         <fieldset>
           <legend>Personal Info</legend>
           <div className="form-row row-two-columns">
+            {/* first name */}
             <div
               className={`floating-label ${employee.firstName ? "active" : ""}`}
             >
-              <input
+              <CustomInput
                 name="firstName"
                 type="text"
                 value={employee.firstName}
@@ -81,10 +90,11 @@ function CreateEmployee() {
               />
               <label htmlFor="firstName">First Name</label>
             </div>
+            {/* last name */}
             <div
               className={`floating-label ${employee.lastName ? "active" : ""}`}
             >
-              <input
+              <CustomInput
                 name="lastName"
                 type="text"
                 value={employee.lastName}
@@ -97,44 +107,57 @@ function CreateEmployee() {
           </div>
 
           <div className="form-row row-three-columns">
+            {/* date of birth */}
             <div
               className={`floating-label ${
-                employee.dateOfBirth ? "active" : ""
+                employee.dateOfBirth || isDateOfBirthFocused ? "active" : ""
               }`}
             >
               <DatePickerField
-                label="Date of Birth"
                 selected={employee.dateOfBirth}
                 onChange={(date) => handleDateChange("dateOfBirth", date)}
-                placeholder="Select date of birth"
+                onFocus={() => setIsDateOfBirthFocused(true)}
+                onBlur={() => setIsDateOfBirthFocused(false)}
+                placeholder="Date of Birth"
                 id="date-of-birth"
+                name="dateOfBirth"
                 maxDate={subYears(new Date(), 16)}
                 required
               />
-
-              <label>Select Date of Birth</label>
+              <label htmlFor="date-of-birth">Date of Birth</label>
             </div>
 
-            <div className="floating-label select-wrapper">
-              <Select
+            {/* department select */}
+            <div className="floating-label select-wrapper active">
+              <SelectField
+                label="Department"
                 options={departments}
+                value={employee.department}
                 onChange={(option) => handleSelectChange("department", option)}
-                placeholder="Department"
-                classNamePrefix="react-select"
-              />
-            </div>
-            <div
-              className={`floating-label ${employee.startDate ? "active" : ""}`}
-            >
-              <DatePickerField
-                label="Start Date"
-                selected={employee.startDate}
-                onChange={(date) => handleDateChange("startDate", date)}
-                placeholder="Select start date"
-                id="start-date"
+                placeholder="Select department..."
+                id="department"
+                name="department"
                 required
               />
-              <label>Select Start Date</label>
+              <label htmlFor="department">Department</label>
+            </div>
+            {/* start date */}
+            <div
+              className={`floating-label ${
+                employee.startDate || isStartDateFocused ? "active" : ""
+              }`}
+            >
+              <DatePickerField
+                selected={employee.startDate}
+                onChange={(date) => handleDateChange("startDate", date)}
+                onFocus={() => setIsStartDateFocused(true)}
+                onBlur={() => setIsStartDateFocused(false)}
+                placeholder="Start Date"
+                id="start-date"
+                name="startDate"
+                required
+              />
+              <label htmlFor="start-date">Start Date</label>
             </div>
           </div>
         </fieldset>
@@ -147,7 +170,7 @@ function CreateEmployee() {
             <div
               className={`floating-label ${employee.street ? "active" : ""}`}
             >
-              <input
+              <CustomInput
                 name="street"
                 type="text"
                 value={employee.street}
@@ -161,8 +184,9 @@ function CreateEmployee() {
 
           {/* Row 2: City - State - ZipCode */}
           <div className="address-three-columns">
+            {/* City */}
             <div className={`floating-label ${employee.city ? "active" : ""}`}>
-              <input
+              <CustomInput
                 name="city"
                 type="text"
                 value={employee.city}
@@ -172,18 +196,25 @@ function CreateEmployee() {
               />
               <label htmlFor="city">City</label>
             </div>
-            <div className="floating-label select-wrapper">
-              <Select
-                options={states}
+
+            {/* State select */}
+            <div className={`floating-label select-wrapper active`}>
+              <SelectField
+                options={stateOptions}
+                value={employee.state}
                 onChange={(option) => handleSelectChange("state", option)}
-                placeholder="State"
-                classNamePrefix="react-select"
+                placeholder="Select state..."
+                id="state"
+                name="state"
+                required
               />
+              <label htmlFor="state">State</label>
             </div>
+            {/* Zip Code */}
             <div
               className={`floating-label ${employee.zipCode ? "active" : ""}`}
             >
-              <input
+              <CustomInput
                 name="zipCode"
                 type="text"
                 value={employee.zipCode}

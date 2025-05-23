@@ -1,0 +1,83 @@
+@use "../../styles/variables" as *;
+
+.selectfield-wrapper {
+  min-width: 220px;
+  width: 100%;
+  margin-bottom: 0;
+
+  .react-select__control {
+    background-color: $dark-surface;
+    border: 1px solid #555;
+    border-radius: $input-radius;
+    color: $dark-text;
+    min-height: 58px;
+    height: 58px;
+    font-size: 1rem;
+    box-shadow: none;
+    align-items: center;
+    transition: border-color 0.2s;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .react-select__value-container {
+    display: flex;
+    align-items: center;
+    height: 58px;
+    padding: 0;
+  }
+
+  .react-select__single-value {
+    color: $dark-text;
+    display: flex;
+    align-items: center;
+    height: 58px;
+    line-height: 58px;
+  }
+
+  .react-select__placeholder {
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    height: 58px;
+    line-height: 58px;
+  }
+
+  .react-select__indicator-separator {
+    display: none;
+  }
+
+  .react-select__dropdown-indicator {
+    color: $green-primary;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-self: center;
+  }
+
+  .react-select__menu {
+    background-color: $dark-surface;
+    color: $dark-text;
+    border-radius: $input-radius;
+    margin-top: 2px;
+    z-index: 10;
+  }
+
+  .react-select__option {
+    background-color: $dark-surface;
+    color: $dark-text;
+    cursor: pointer;
+    &:hover,
+    &.react-select__option--is-focused {
+      background-color: $green-primary;
+      color: $dark-surface;
+    }
+    &.react-select__option--is-selected {
+      background-color: $green-primary;
+      color: $dark-surface;
+    }
+  }
+
+  .react-select__control--is-focused {
+    border-color: $green-primary;
+  }
+}

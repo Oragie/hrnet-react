@@ -121,39 +121,11 @@
     }
 
     &.active label,
-    input:focus + label,
-    input:not(:placeholder-shown) + label,
-    .react-datepicker-wrapper input:focus + label,
-    .react-datepicker-wrapper input:not(:placeholder-shown) + label {
+    input:focus + label {
       top: 0.2rem;
       left: 0.6rem;
       font-size: 0.75rem;
       color: $green-primary;
-    }
-  }
-
-  .select-wrapper {
-    flex: 1;
-    min-width: 220px;
-
-    .react-select__control {
-      background-color: $dark-surface;
-      border: 1px solid #555;
-      border-radius: $input-radius;
-      color: white;
-      min-height: 52px;
-    }
-
-    .react-select__single-value {
-      color: white;
-    }
-
-    .react-select__placeholder {
-      color: #ccc;
-    }
-
-    .react-select__control--is-focused {
-      border-color: $green-primary;
     }
   }
 
