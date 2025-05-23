@@ -7,3 +7,19 @@
   font-weight: bold;
   margin-bottom: 2rem;
 }
+
+.employee-table-delete-btn {
+  background: transparent;
+  border: none;
+  color: #ff5a5a;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: #c40000;
+  }
+}
