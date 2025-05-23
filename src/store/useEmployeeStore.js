@@ -1,7 +1,13 @@
 import { create } from "zustand";
 
+// Fonction utilitaire pour charger les employés du localStorage
+function loadEmployeesFromLocalStorage() {
+  const data = localStorage.getItem("employees");
+  return data ? JSON.parse(data) : [];
+}
+
 const useEmployeeStore = create((set) => ({
-  employees: [],
+  employees: loadEmployeesFromLocalStorage(), // Charge au démarrage
   employee: {
     firstName: "",
     lastName: "",
@@ -18,20 +24,24 @@ const useEmployeeStore = create((set) => ({
       employee: { ...state.employee, [field]: value },
     })),
   addEmployee: () =>
-    set((state) => ({
-      employees: [...state.employees, state.employee],
-      employee: {
-        firstName: "",
-        lastName: "",
-        startDate: null,
-        department: "",
-        dateOfBirth: null,
-        street: "",
-        city: "",
-        state: "",
-        zipCode: "",
-      },
-    })),
+    set((state) => {
+      const updated = [...state.employees, state.employee];
+      localStorage.setItem("employees", JSON.stringify(updated)); // Mets à jour le localStorage aussi
+      return {
+        employees: updated,
+        employee: {
+          firstName: "",
+          lastName: "",
+          startDate: null,
+          department: "",
+          dateOfBirth: null,
+          street: "",
+          city: "",
+          state: "",
+          zipCode: "",
+        },
+      };
+    }),
 }));
 
 export default useEmployeeStore;

@@ -1,73 +1,154 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import {
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
 import useEmployeeStore from "../../store/useEmployeeStore";
 import "./_employee-table.scss";
 
 function EmployeeTable() {
   const employees = useEmployeeStore((state) => state.employees);
   const [searchTerm, setSearchTerm] = useState("");
+  const [pageSize, setPageSize] = useState(10);
 
-  const filteredEmployees = employees.filter((emp) => {
+  // Columns for react-table v8+
+  const columnHelper = createColumnHelper();
+
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor("firstName", { header: "First Name" }),
+      columnHelper.accessor("lastName", { header: "Last Name" }),
+      columnHelper.accessor("startDate", { header: "Start Date" }),
+      columnHelper.accessor("department", { header: "Department" }),
+      columnHelper.accessor("dateOfBirth", { header: "Date of Birth" }),
+      columnHelper.accessor("street", { header: "Street" }),
+      columnHelper.accessor("city", { header: "City" }),
+      columnHelper.accessor("state", { header: "State" }),
+      columnHelper.accessor("zipCode", { header: "Zip Code" }),
+    ],
+    []
+  );
+
+  // Global filtering BEFORE passing to useReactTable
+  const data = useMemo(() => {
+    if (!searchTerm) return employees;
     const search = searchTerm.toLowerCase();
-    return (
-      emp.firstName.toLowerCase().includes(search) ||
-      emp.lastName.toLowerCase().includes(search) ||
-      emp.department.toLowerCase().includes(search) ||
-      emp.city.toLowerCase().includes(search) ||
-      emp.state.toLowerCase().includes(search)
+    return employees.filter((emp) =>
+      [emp.firstName, emp.lastName, emp.department, emp.city, emp.state]
+        .join(" ")
+        .toLowerCase()
+        .includes(search)
     );
+  }, [employees, searchTerm]);
+
+  // react-table v8+ with pagination
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: pageSize,
+      },
+    },
   });
+
+  // Change page size
+  const handlePageSizeChange = (e) => {
+    const newSize = Number(e.target.value);
+    setPageSize(newSize);
+    table.setPageSize(newSize);
+    table.setPageIndex(0); // Go back to first page
+  };
 
   return (
     <div className="employee-table">
-      <div className="search-bar mb-4">
+      <div className="employee-table-searchbar">
         <input
           type="text"
-          placeholder="Rechercher un employé..."
-          className="input input-bordered w-full max-w-md"
+          placeholder="Search all columns"
+          className="employee-table-searchinput"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
+      <div className="employee-table-scroll">
+        <table className="employee-table-table">
           <thead>
-            <tr>
-              <th>Prénom</th>
-              <th>Nom</th>
-              <th>Date d'embauche</th>
-              <th>Département</th>
-              <th>Date de naissance</th>
-              <th>Rue</th>
-              <th>Ville</th>
-              <th>État</th>
-              <th>Code postal</th>
-            </tr>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : header.column.columnDef.header}
+                  </th>
+                ))}
+              </tr>
+            ))}
           </thead>
           <tbody>
-            {filteredEmployees.length > 0 ? (
-              filteredEmployees.map((emp, index) => (
-                <tr key={index}>
-                  <td>{emp.firstName}</td>
-                  <td>{emp.lastName}</td>
-                  <td>{emp.startDate?.toLocaleDateString()}</td>
-                  <td>{emp.department}</td>
-                  <td>{emp.dateOfBirth?.toLocaleDateString()}</td>
-                  <td>{emp.street}</td>
-                  <td>{emp.city}</td>
-                  <td>{emp.state}</td>
-                  <td>{emp.zipCode}</td>
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>{cell.getValue()}</td>
+                  ))}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="9" className="text-center">
-                  Aucun résultat pour « {searchTerm} »
+                <td colSpan={columns.length} className="employee-table-empty">
+                  No results for "{searchTerm}"
                 </td>
               </tr>
             )}
           </tbody>
         </table>
+      </div>
+      <div className="employee-table-pagination">
+        <span>Rows per page:</span>
+        <select value={pageSize} onChange={handlePageSizeChange}>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={50}>50</option>
+        </select>
+        <span>
+          {table.getState().pagination.pageIndex * pageSize + 1}-
+          {Math.min(
+            (table.getState().pagination.pageIndex + 1) * pageSize,
+            data.length
+          )}{" "}
+          of {data.length}
+        </span>
+        <button
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"|<"}
+        </button>
+        <button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          {"<"}
+        </button>
+        <button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          {">"}
+        </button>
+        <button
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          {">|"}
+        </button>
       </div>
     </div>
   );

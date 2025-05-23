@@ -1,23 +1,33 @@
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import useEmployeeStore from "../../store/useEmployeeStore";
 
-function DateOfBirthPicker() {
-  const { employee, setEmployeeField } = useEmployeeStore();
-
+function DatePickerField({
+  label,
+  selected,
+  onChange,
+  placeholder,
+  id,
+  maxDate,
+  minDate,
+  required = false,
+}) {
   return (
     <div className="form-group">
-      <label htmlFor="date-of-birth">Date of Birth</label>
+      <label htmlFor={id}>{label}</label>
       <ReactDatePicker
-        selected={employee.dateOfBirth}
-        onChange={(date) => setEmployeeField("dateOfBirth", date)}
-        dateFormat="dd/MM/yyyy"
-        id="date-of-birth"
+        selected={selected}
+        onChange={onChange}
+        dateFormat="MM/dd/yyyy"
+        id={id}
         className="date-picker"
-        placeholderText="Select date of birth"
+        placeholderText={placeholder}
+        maxDate={maxDate}
+        minDate={minDate}
+        showYearDropdown
+        required={required}
       />
     </div>
   );
 }
 
-export default DateOfBirthPicker;
+export default DatePickerField;

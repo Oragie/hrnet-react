@@ -2,7 +2,8 @@ import { useState } from "react";
 import Select from "react-select";
 import states from "../../assets/states/states";
 import departments from "../../assets/departments/departments";
-import DatePicker from "react-datepicker";
+import DatePickerField from "../../components/DatePicker";
+import EmployeeSuccessModal from "../../components/Modal/EmployeeSuccessModal";
 import CustomInput from "../../components/CustomInput";
 import "react-datepicker/dist/react-datepicker.css";
 import useEmployeeStore from "../../store/useEmployeeStore";
@@ -101,16 +102,13 @@ function CreateEmployee() {
                 employee.dateOfBirth ? "active" : ""
               }`}
             >
-              <DatePicker
+              <DatePickerField
+                label="Date of Birth"
                 selected={employee.dateOfBirth}
                 onChange={(date) => handleDateChange("dateOfBirth", date)}
-                customInput={
-                  <CustomInput placeholder="Date of Birth" name="dateOfBirth" />
-                }
-                showYearDropdown
-                dateFormat="MM/dd/yyyy"
+                placeholder="Select date of birth"
+                id="date-of-birth"
                 maxDate={subYears(new Date(), 16)}
-                openToDate={subYears(new Date(), 16)}
                 required
               />
 
@@ -128,15 +126,15 @@ function CreateEmployee() {
             <div
               className={`floating-label ${employee.startDate ? "active" : ""}`}
             >
-              <DatePicker
+              <DatePickerField
+                label="Start Date"
                 selected={employee.startDate}
                 onChange={(date) => handleDateChange("startDate", date)}
-                placeholderText="mm/dd/yyyy"
-                dateFormat="MM/dd/yyyy"
-                showYearDropdown
+                placeholder="Select start date"
+                id="start-date"
                 required
               />
-              <label>Start Date</label>
+              <label>Select Start Date</label>
             </div>
           </div>
         </fieldset>
@@ -144,7 +142,7 @@ function CreateEmployee() {
         <fieldset className="address-box">
           <legend>Address</legend>
 
-          {/* Ligne 1 : Street seule */}
+          {/* Row 1: Street only */}
           <div className="form-row row-full-width">
             <div
               className={`floating-label ${employee.street ? "active" : ""}`}
@@ -161,7 +159,7 @@ function CreateEmployee() {
             </div>
           </div>
 
-          {/* Ligne 2 : City - State - ZipCode */}
+          {/* Row 2: City - State - ZipCode */}
           <div className="address-three-columns">
             <div className={`floating-label ${employee.city ? "active" : ""}`}>
               <input
@@ -170,6 +168,7 @@ function CreateEmployee() {
                 value={employee.city}
                 onChange={handleInputChange}
                 required
+                placeholder="City"
               />
               <label htmlFor="city">City</label>
             </div>
@@ -190,6 +189,7 @@ function CreateEmployee() {
                 value={employee.zipCode}
                 onChange={handleInputChange}
                 required
+                placeholder="Zip Code"
               />
               <label htmlFor="zipCode">Zip Code</label>
             </div>
@@ -206,16 +206,10 @@ function CreateEmployee() {
         </button>
       </form>
 
-      <Modal
+      <EmployeeSuccessModal
         isOpen={showModal}
-        closeModal={() => setShowModal(false)}
-        title="Employee created"
-        message={
-          <>
-            <img src={acceptIcon} alt="accepted" className="modal-icon" /> The
-            employee has been successfully added!
-          </>
-        }
+        onClose={() => setShowModal(false)}
+        employee={employee}
       />
     </div>
   );

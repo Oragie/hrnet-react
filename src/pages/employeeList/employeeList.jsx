@@ -1,9 +1,10 @@
 import EmployeeTable from "../../components/EmployeeTable";
+import "./_employeeList.scss";
 
 function EmployeeList() {
   return (
-    <main className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Liste des employés</h2>
+    <main className="employee-list-main">
+      <h2 className="employee-list-title">Employee List</h2>
       <EmployeeTable />
     </main>
   );

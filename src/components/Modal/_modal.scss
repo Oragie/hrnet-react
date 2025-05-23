@@ -1,17 +1,20 @@
 @use "sass:color";
+@use "../../styles/variables" as *;
 
 .modal-overlay {
-  background-color: rgba(0, 0, 0, 0.6); // fond semi-transparent sombre
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
 }
 
 .modal-content {
-  background-color: #1e1e1e; // fond modal
-  color: #f0f0f0;
-  border-radius: 12px;
-  padding: 2rem;
-  max-width: 500px;
+  background-color: $dark-surface;
+  color: $text-light;
+  border-radius: 16px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 480px;
   width: 100%;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  text-align: center;
 
   h2 {
     font-size: 1.5rem;
@@ -35,6 +38,54 @@
 
     &:hover {
       background-color: color.adjust(#73842c, $lightness: -10%);
+    }
+  }
+}
+
+.modal-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .modal-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    color: $green-primary;
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-message {
+    color: $green-primary;
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-recap {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: $text-light;
+  }
+
+  .modal-close-btn {
+    background-color: $green-primary;
+    color: $dark-surface;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: darken($green-primary, 10%);
+      color: white;
     }
   }
 }
