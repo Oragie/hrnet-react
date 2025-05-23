@@ -43,6 +43,14 @@ const useEmployeeStore = create((set) => ({
         },
       };
     }),
+
+  removeEmployee: (index) =>
+    set((state) => {
+      const newEmployees = [...state.employees];
+      newEmployees.splice(index, 1);
+      localStorage.setItem("employees", JSON.stringify(newEmployees));
+      return { employees: newEmployees };
+    }),
 }));
 
 export default useEmployeeStore;

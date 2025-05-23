@@ -6,6 +6,7 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from "@tanstack/react-table";
+import { FaTrash } from "react-icons/fa";
 import useEmployeeStore from "../../store/useEmployeeStore";
 import "./_employee-table.scss";
 
@@ -13,6 +14,7 @@ function EmployeeTable() {
   const employees = useEmployeeStore((state) => state.employees);
   const [searchTerm, setSearchTerm] = useState("");
   const [pageSize, setPageSize] = useState(10);
+  const removeEmployee = useEmployeeStore((state) => state.removeEmployee);
 
   // Columns for react-table v8+
   const columnHelper = createColumnHelper();
@@ -48,8 +50,22 @@ function EmployeeTable() {
       columnHelper.accessor("city", { header: "City" }),
       columnHelper.accessor("state", { header: "State" }),
       columnHelper.accessor("zipCode", { header: "Zip Code" }),
+      {
+        id: "delete",
+        header: "",
+        cell: (info) => (
+          <button
+            className="employee-table-delete-btn"
+            title="Delete employee"
+            onClick={() => removeEmployee(info.row.index)}
+          >
+            <FaTrash />
+          </button>
+        ),
+        enableSorting: false,
+      },
     ],
-    [columnHelper]
+    [columnHelper, removeEmployee]
   );
 
   // Global filtering BEFORE passing to useReactTable
