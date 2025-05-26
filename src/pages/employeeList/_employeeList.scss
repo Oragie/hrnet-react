@@ -1,11 +1,94 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
+
+.employee-list-main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: $dark-text;
+  font-family: $font-main;
+}
 
 .employee-list-title {
   text-align: center;
   color: $green-primary;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+.employee-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.employee-table-searchbar {
+  display: flex;
+  justify-content: right;
+
+  .employee-table-searchinput {
+    padding: 0.5rem 1rem;
+    border-radius: $input-radius;
+    border: 1px solid $green-primary;
+    background: $dark-surface;
+    color: $dark-text;
+    font-size: 1rem;
+    min-width: 280px;
+
+    &::placeholder {
+      color: #bbb;
+    }
+  }
+}
+
+.employee-table-scroll {
+  overflow-x: auto;
+}
+
+.employee-table-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  th, td {
+    padding: 0.8rem;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  th {
+    background-color: $dark-surface;
+    color: white;
+    font-weight: 600;
+    border-bottom: 2px solid $green-primary;
+  }
+
+  td {
+    color: $green-primary;
+    border-bottom: 1px solid $dark-border;
+  }
+
+  tr:nth-child(even) {
+    background-color: color.adjust($dark-surface, $lightness: 3%);
+  }
+
+  tr:nth-child(odd) {
+    background-color: $dark-surface;
+  }
+
+  tr:hover {
+    background-color: $green-light;
+    color: $dark-surface;
+
+    td {
+      color: $dark-surface;
+      font-weight: 600;
+    }
+  }
 }
 
 .employee-table-delete-btn {
@@ -14,12 +97,59 @@
   color: #ff5a5a;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s;
 
   &:hover {
     color: #c40000;
+  }
+}
+
+.employee-table-empty {
+  text-align: center;
+  color: #888;
+  padding: 1rem;
+  font-style: italic;
+}
+
+.employee-table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: white;
+  font-size: 1rem;
+
+  select {
+    background: $dark-surface;
+    color: white;
+    border: 1px solid $green-primary;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: $green-primary;
+    font-size: 1.1rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:disabled {
+      color: #555;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover {
+      background: $green-primary;
+      color: white;
+    }
   }
 }
