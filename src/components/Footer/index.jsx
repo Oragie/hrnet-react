@@ -1,4 +1,4 @@
-import logo from "../../assets/img/logoHRNet_nobg.webp";
+import logo from "../../assets/img/logo.png";
 import "./_footer.scss";
 
 function Footer() {

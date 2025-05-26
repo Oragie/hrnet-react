@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { flexRender } from "@tanstack/react-table";
+import { getSortedRowModel } from "@tanstack/react-table";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -15,6 +16,8 @@ function EmployeeTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [pageSize, setPageSize] = useState(10);
   const removeEmployee = useEmployeeStore((state) => state.removeEmployee);
+
+  const [sorting, setSorting] = useState([]);
 
   // Columns for react-table v8+
   const columnHelper = createColumnHelper();
@@ -84,14 +87,17 @@ function EmployeeTable() {
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
+    state: {
+      sorting,
       pagination: {
         pageIndex: 0,
         pageSize: pageSize,
       },
     },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(), // <-- Ajoute ceci
   });
 
   // Change page size
@@ -119,10 +125,17 @@ function EmployeeTable() {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : header.column.columnDef.header}
+                  <th
+                    key={header.id}
+                    onClick={header.column.getToggleSortingHandler()}
+                    className="sortable-header"
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.column.getIsSorted() === "asc" && " 🔼"}
+                    {header.column.getIsSorted() === "desc" && " 🔽"}
                   </th>
                 ))}
               </tr>

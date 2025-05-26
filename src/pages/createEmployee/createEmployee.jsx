@@ -69,7 +69,7 @@ function CreateEmployee() {
   const [isStartDateFocused, setIsStartDateFocused] = useState(false);
 
   return (
-    <div className="create-employee container">
+    <div className="create-employee">
       <h2 className="form-title">Create Employee</h2>
       <form onSubmit={handleSubmit} className="form">
         <fieldset>

@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/img/logoHRNet_nobg.webp";
+import logo from "../../assets/img/logo.png";
 import iconAdd from "../../assets/img/new-employee.png";
 import iconList from "../../assets/img/List.png";
 import "./_header.scss";

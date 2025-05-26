@@ -58,6 +58,17 @@
   margin-bottom: 2rem;
 }
 
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $green-light;
+  }
+}
+
+
 .pagination-bar {
   display: flex;
   align-items: center;
