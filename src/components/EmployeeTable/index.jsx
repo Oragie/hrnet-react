@@ -1,11 +1,11 @@
 import { useState, useMemo } from "react";
 import { flexRender } from "@tanstack/react-table";
-import { getSortedRowModel } from "@tanstack/react-table";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import { FaTrash } from "react-icons/fa";
 import useEmployeeStore from "../../store/useEmployeeStore";
@@ -13,13 +13,13 @@ import "./_employee-table.scss";
 
 function EmployeeTable() {
   const employees = useEmployeeStore((state) => state.employees);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [pageSize, setPageSize] = useState(10);
   const removeEmployee = useEmployeeStore((state) => state.removeEmployee);
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [sorting, setSorting] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageIndex, setPageIndex] = useState(0);
 
-  // Columns for react-table v8+
   const columnHelper = createColumnHelper();
 
   const columns = useMemo(
@@ -30,11 +30,7 @@ function EmployeeTable() {
         header: "Start Date",
         cell: (info) =>
           info.getValue()
-            ? new Date(info.getValue()).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              })
+            ? new Date(info.getValue()).toLocaleDateString("en-US")
             : "",
       }),
       columnHelper.accessor("department", { header: "Department" }),
@@ -42,11 +38,7 @@ function EmployeeTable() {
         header: "Date of Birth",
         cell: (info) =>
           info.getValue()
-            ? new Date(info.getValue()).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              })
+            ? new Date(info.getValue()).toLocaleDateString("en-US")
             : "",
       }),
       columnHelper.accessor("street", { header: "Street" }),
@@ -61,6 +53,7 @@ function EmployeeTable() {
             className="employee-table-delete-btn"
             title="Delete employee"
             onClick={() => removeEmployee(info.row.index)}
+            aria-label="Delete employee"
           >
             <FaTrash />
           </button>
@@ -68,45 +61,41 @@ function EmployeeTable() {
         enableSorting: false,
       },
     ],
-    [columnHelper, removeEmployee]
+    [removeEmployee]
   );
 
-  // Global filtering BEFORE passing to useReactTable
-  const data = useMemo(() => {
+  const filteredData = useMemo(() => {
     if (!searchTerm) return employees;
-    const search = searchTerm.toLowerCase();
+    const term = searchTerm.toLowerCase();
     return employees.filter((emp) =>
       [emp.firstName, emp.lastName, emp.department, emp.city, emp.state]
         .join(" ")
         .toLowerCase()
-        .includes(search)
+        .includes(term)
     );
   }, [employees, searchTerm]);
 
-  // react-table v8+ with pagination
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     state: {
       sorting,
-      pagination: {
-        pageIndex: 0,
-        pageSize: pageSize,
-      },
+      pagination: { pageIndex, pageSize },
     },
     onSortingChange: setSorting,
+    onPaginationChange: (updater) => {
+      const newState =
+        typeof updater === "function"
+          ? updater({ pageIndex, pageSize })
+          : updater;
+      setPageIndex(newState.pageIndex);
+      setPageSize(newState.pageSize);
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(), // <-- Ajoute ceci
+    getSortedRowModel: getSortedRowModel(),
+    manualPagination: false,
   });
-
-  // Change page size
-  const handlePageSizeChange = (e) => {
-    const newSize = Number(e.target.value);
-    setPageSize(newSize);
-    table.setPageSize(newSize);
-    table.setPageIndex(0); // Go back to first page
-  };
 
   return (
     <div className="employee-table">
@@ -116,9 +105,13 @@ function EmployeeTable() {
           placeholder="Search all columns"
           className="employee-table-searchinput"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setPageIndex(0);
+          }}
         />
       </div>
+
       <div className="employee-table-scroll">
         <table className="employee-table-table">
           <thead>
@@ -127,8 +120,22 @@ function EmployeeTable() {
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
+                    scope="col"
+                    role="columnheader"
+                    tabIndex={0}
                     onClick={header.column.getToggleSortingHandler()}
-                    className="sortable-header"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        header.column.toggleSorting();
+                      }
+                    }}
+                    aria-sort={
+                      header.column.getIsSorted() === "asc"
+                        ? "ascending"
+                        : header.column.getIsSorted() === "desc"
+                        ? "descending"
+                        : "none"
+                    }
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -165,22 +172,32 @@ function EmployeeTable() {
           </tbody>
         </table>
       </div>
+
       <div className="employee-table-pagination">
-        <span>Rows per page:</span>
-        <select value={pageSize} onChange={handlePageSizeChange}>
+        <label htmlFor="rows-per-page" className="visually-hidden">
+          Rows per page
+        </label>
+        <select
+          id="rows-per-page"
+          name="rows-per-page"
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+            setPageIndex(0);
+          }}
+        >
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>
           <option value={100}>100</option>
         </select>
+
         <span>
-          {table.getState().pagination.pageIndex * pageSize + 1}-
-          {Math.min(
-            (table.getState().pagination.pageIndex + 1) * pageSize,
-            data.length
-          )}{" "}
-          of {data.length}
+          {pageIndex * pageSize + 1}-
+          {Math.min((pageIndex + 1) * pageSize, filteredData.length)} of{" "}
+          {filteredData.length}
         </span>
+
         <button
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}

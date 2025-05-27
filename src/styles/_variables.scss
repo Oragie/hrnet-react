@@ -1,10 +1,18 @@
+@use "sass:color";
 // Couleurs
-$green-primary: #62b36b;
-$green-light: #7fff7a;
+$green-primary: #2e7d32; // vert foncé accessible pour fond
+$green-light: #66bb6a;   // vert clair complémentaire
 $dark-bg: #202123;
 $dark-surface: #2b2c2f;
 $dark-text: #f3f3f3;
 $dark-border: #3c3d3f;
+$green-soft: #a5d6a7;  // fond vert clair
+$text-dark: #1a1a1a;   // texte foncé
+
+$accessible-green: #2e7d32;
+$accessible-hover: color.adjust($accessible-green, $lightness: -10%);
+$accessible-text: white;
+
 
 //fonts
 $font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

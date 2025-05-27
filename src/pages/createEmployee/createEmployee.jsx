@@ -8,7 +8,7 @@ import EmployeeSuccessModal from "../../components/Modal/EmployeeSuccessModal";
 import "react-datepicker/dist/react-datepicker.css";
 import useEmployeeStore from "../../store/useEmployeeStore";
 import { subYears } from "date-fns";
-
+import saveIcon from "../../assets/img/savedisk.png";
 import "./_create-employee.scss";
 
 function CreateEmployee() {
@@ -227,11 +227,7 @@ function CreateEmployee() {
         </fieldset>
 
         <button type="submit" className="submit-button">
-          <img
-            src="/src/assets/img/savedisk.svg"
-            alt="Save"
-            className="btn-icon"
-          />{" "}
+          <img src={saveIcon} alt="" aria-hidden="true" className="btn-icon" />{" "}
           Save
         </button>
       </form>

@@ -8,11 +8,11 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 0rem;
-  color: white;
+  color: $accessible-text;
 
   .form-title {
     text-align: center;
-    color: $green-primary;
+    color: $accessible-green;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -25,16 +25,17 @@
   }
 
   fieldset {
-    border: 1px solid $green-primary;
+    border: 1px solid $accessible-green;
+    background-color: color.adjust($dark-surface, $lightness: 3%);
     border-radius: $input-radius;
     padding: 1.5rem 2rem;
     margin-bottom: -0.5rem;
-    background-color: color.adjust($dark-surface, $lightness: 3%);
+    
 
     legend {
       font-size: 1.2rem;
       font-weight: bold;
-      color: $green-primary;
+      color: $accessible-green;
       margin-bottom: 0rem;
       padding: 0 0.5rem;
     }
@@ -94,7 +95,7 @@
     input,
     .react-datepicker-wrapper input {
       background-color: $dark-surface;
-      color: white;
+      color: $accessible-text;
       border: 1px solid #555;
       border-radius: $input-radius;
       padding: 1.8rem 0.75rem 0.6rem;
@@ -106,7 +107,7 @@
       }
 
       &:focus {
-        border-color: $green-primary;
+        border-color: $accessible-green;
         outline: none;
       }
     }
@@ -128,7 +129,7 @@
       top: 0.2rem;
       left: 0.6rem;
       font-size: 0.75rem;
-      color: $green-primary;
+      color: $accessible-green;
     }
   }
 
@@ -136,8 +137,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $green-primary;
-  color: #fff;
+  background: $accessible-green;
+  color: $accessible-text;
   border: none;
   border-radius: 8px;
   padding: 1rem 2rem;
@@ -150,11 +151,11 @@
   margin-bottom: 1.5rem;
 
   &:hover {
-    background: color.adjust($green-primary, $lightness: -20%);
-    color: $green-primary;
+    background: $accessible-hover;
+      color: $accessible-text;
 
     .btn-icon {
-      filter: brightness(0.7); // juste plus sombre au survol
+      filter: brightness(1.1);
     }
   }
 
@@ -182,25 +183,4 @@
     transition: background-color 5000s ease-in-out 0s;
   }
 
-  .react-datepicker__header {
-    background-color: $green-primary;
-    border-bottom: none;
-  }
-  
-
-  .react-datepicker__current-month,
-  .react-datepicker__day-name,
-  .react-datepicker__day {
-    color: $green-primary;
-  }
-
-  .react-datepicker__day--selected,
-  .react-datepicker__day--keyboard-selected {
-    background-color: color.scale($green-primary, $lightness: -10%);
-    color: $green-primary;
-  }
-
-  .react-datepicker__day--today {
-    border: 1px solid $green-primary;
-  }
 }

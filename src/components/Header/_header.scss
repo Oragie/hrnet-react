@@ -12,6 +12,7 @@
   top: 0;
   z-index: 10;
   background-color: $dark-surface;
+  color: $accessible-text;
   container-type: inline-size;
 
   .hrnet-info {
@@ -35,12 +36,14 @@
     .hrnet-logo {
       width: 60px;
       height: 60px;
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2));
     }
 
     .hrnet-title {
-      color: $green-primary;
-      font-weight: 500;
+      color: $accessible-green;
+      font-weight: 700;
       font-size: 24px;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
     }
   }
 
@@ -55,8 +58,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: $green-primary;
-      color: #fff;
+      background: $accessible-green;
+    color: $accessible-text;
       border: none;
       border-radius: 8px;
       padding: 1rem 2rem;
@@ -78,11 +81,11 @@
       }
 
       &:hover {
-        background: color.adjust($green-primary, $lightness: -20%);
-        color: $green-primary;
+        background: $accessible-hover;
+      color: $accessible-text;
 
         .nav-icon {
-          filter: brightness(0.7);
+          filter: brightness(1.2);
         }
       }
      }

@@ -1,5 +1,6 @@
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./_datepicker.scss";
 
 function formatInputToDateString(str) {
   // Si déjà au format mm/dd/yyyy, on ne touche pas

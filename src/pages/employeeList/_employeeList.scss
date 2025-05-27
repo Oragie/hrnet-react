@@ -5,17 +5,17 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 2rem;
-  color: $dark-text;
+  color: $accessible-text;
   font-family: $font-main;
 }
 
 .employee-list-title {
   text-align: center;
-  color: $green-primary;
+  color: $accessible-green;
   font-size: 2rem;
   font-weight: bold;
-  margin-top: 0rem;
-  margin-bottom: 0rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .employee-table {
@@ -26,19 +26,19 @@
 
 .employee-table-searchbar {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 
   .employee-table-searchinput {
     padding: 0.5rem 1rem;
     border-radius: $input-radius;
-    border: 1px solid $green-primary;
+    border: 1px solid $accessible-green;
     background: $dark-surface;
-    color: $dark-text;
+    color: $accessible-text;
     font-size: 1rem;
     min-width: 280px;
 
     &::placeholder {
-      color: #bbb;
+      color: color.adjust($accessible-text, $lightness: -40%);
     }
   }
 }
@@ -51,8 +51,10 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  background-color: $dark-surface;
 
-  th, td {
+  th,
+  td {
     padding: 0.8rem;
     text-align: left;
     overflow: hidden;
@@ -61,14 +63,20 @@
   }
 
   th {
-    background-color: $dark-surface;
-    color: white;
+    background-color: $dark-bg;
+    color: $accessible-text;
     font-weight: 600;
-    border-bottom: 2px solid $green-primary;
+    border-bottom: 2px solid $accessible-green;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: color.adjust($dark-bg, $lightness: 10%);
+    }
   }
 
   td {
-    color: $green-primary;
+    color: $accessible-text;
     border-bottom: 1px solid $dark-border;
   }
 
@@ -82,10 +90,9 @@
 
   tr:hover {
     background-color: $green-light;
-    color: $dark-surface;
 
     td {
-      color: $dark-surface;
+      color: $text-dark;
       font-weight: 600;
     }
   }
@@ -109,7 +116,7 @@
 
 .employee-table-empty {
   text-align: center;
-  color: #888;
+  color: color.adjust($accessible-text, $lightness: -20%);
   padding: 1rem;
   font-style: italic;
 }
@@ -120,13 +127,13 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  color: white;
+  color: $accessible-text;
   font-size: 1rem;
 
   select {
     background: $dark-surface;
-    color: white;
-    border: 1px solid $green-primary;
+    color: $accessible-text;
+    border: 1px solid $accessible-green;
     border-radius: 4px;
     padding: 0.4rem 0.8rem;
     font-size: 1rem;
@@ -135,7 +142,7 @@
   button {
     background: transparent;
     border: none;
-    color: $green-primary;
+    color: $accessible-green;
     font-size: 1.1rem;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
@@ -143,13 +150,13 @@
     transition: background 0.2s ease;
 
     &:disabled {
-      color: #555;
+      color: color.adjust($accessible-text, $lightness: -40%);
       cursor: not-allowed;
     }
 
     &:not(:disabled):hover {
-      background: $green-primary;
-      color: white;
+      background: $accessible-green;
+      color: $accessible-text;
     }
   }
 }

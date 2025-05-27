@@ -1,114 +1,140 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
 
-.table {
-  th {
-    background-color: #f2f2f2;
-    color: #333;
-  }
-
-  td {
-    padding: 0.75rem;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-}
-
 .employee-table {
-  .search-bar {
+  .employee-table-searchbar {
+    margin-bottom: 0rem;
     display: flex;
-    align-items: center;
-    background: $green-primary;
-    border-radius: 2rem;
-    padding: 0.2rem 0.5rem 0.2rem 0.8rem;
-    width: fit-content;
-    margin: 0 auto 2rem auto;
+    justify-content: right;
 
-    .search-icon {
-      display: flex;
-      align-items: center;
-      color: white;
-      margin-right: 0.5rem;
-    }
-
-    .search-input {
-      border: none;
-      outline: none;
-      background: transparent;
-      color: white;
-      font-size: 1.1rem;
-      padding: 0.5rem 1rem 0.5rem 0;
-      border-radius: 2rem;
-      min-width: 250px;
+    .employee-table-searchinput {
+      background-color: $dark-surface;
+      color: $accessible-text;
+      border: 1px solid $accessible-green;
+      border-radius: $input-radius;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
 
       &::placeholder {
-        color: #e0e0e0;
-        opacity: 1;
+        color: color.adjust($accessible-text, $lightness: -40%);
       }
     }
   }
-}
 
-.employee-list-title {
-  text-align: center;
-  color: $green-primary;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-}
-
-.sortable-header {
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s;
-
-  &:hover {
-    color: $green-light;
-  }
-}
-
-
-.pagination-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  color: white;
-
-  span {
-    font-size: 1rem;
+  .employee-table-scroll {
+    overflow-x: auto;
   }
 
-  select {
-    background: $dark-surface;
-    color: white;
-    border: 1px solid $green-primary;
-    border-radius: 0.5rem;
-    padding: 0.2rem 0.8rem;
-    font-size: 1rem;
-    margin: 0 0.5rem;
+  .employee-table-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: $dark-surface;
+    color: $accessible-green;
+
+    th,
+    td {
+      padding: 1rem;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 200px;
+    }
+
+    th {
+      background-color: $dark-bg;
+      color: $accessible-text;
+      font-weight: bold;
+      cursor: pointer;
+      border-bottom: 2px solid $accessible-green;
+      user-select: none;
+
+      &:hover {
+        background-color: color.adjust($dark-bg, $lightness: 10%);
+      }
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: color.adjust($dark-surface, $lightness: -3%);
+    }
+
+    tbody tr:hover {
+      background-color: $green-light;
+      color: $text-dark;
+    }
   }
 
-  button {
-    background: none;
+  .employee-table-pagination {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+
+    select {
+      background-color: $dark-surface;
+      color: $accessible-text;
+      border: 1px solid $accessible-green;
+      border-radius: $input-radius;
+      padding: 0.3rem 0.8rem;
+    }
+
+    button {
+      background: none;
+      border: 1px solid $accessible-green;
+      color: $accessible-green;
+      border-radius: $input-radius;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: $accessible-green;
+        color: $accessible-text;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .employee-table-empty {
+    text-align: center;
+    padding: 2rem;
+    color: $accessible-text;
+  }
+
+  .employee-table-delete-btn {
+    background: transparent;
     border: none;
-    color: $green-primary;
+    color: #ff5a5a;
     font-size: 1.2rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 0.3rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: color 0.2s;
 
-    &:disabled {
-      color: #555;
-      cursor: not-allowed;
+    &:hover {
+      color: #c40000;
     }
+  }
 
-    &:not(:disabled):hover {
-      background: $green-primary;
-      color: white;
-    }
+  .sortable-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
