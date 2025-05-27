@@ -6,8 +6,8 @@
   width: 100%;
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid $accessible-green;
-  background-color: $accessible-green;
+  border: 1px solid $green-light;
+  background-color: $green-light;
   color: $accessible-text;
   font-weight: 500;
 
@@ -26,10 +26,10 @@
 :global(.react-datepicker) {
   font-family: $font-main;
   background-color: $dark-surface;
-  border: 1px solid $accessible-green;
+  border: 1px solid $green-light;
 
   .react-datepicker__header {
-    background-color: $accessible-green;
+    background-color: $green-light;
     border-bottom: none;
   }
 
@@ -41,11 +41,11 @@
 
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
-    background-color: color.scale($accessible-green, $lightness: -10%);
+    background-color: color.scale($green-light, $lightness: -10%);
     color: $accessible-text;
   }
 
   .react-datepicker__day--today {
-    border: 1px solid $accessible-green;
+    border: 1px solid $green-light;
   }
 }

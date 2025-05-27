@@ -27,7 +27,7 @@ function SelectField({
           ...theme,
           colors: {
             ...theme.colors,
-            primary: "#73842c", // $green-primary
+            primary: "#73842c", // $accessible-green
             primary25: "#232a1c", // foncé sur hover
             neutral0: "#2b2c2f", // $dark-surface (fond)
             neutral80: "#f3f3f3", // $dark-text (texte)

@@ -48,7 +48,7 @@
   }
 
   .react-select__dropdown-indicator {
-    color: $green-primary;
+    color: $accessible-green;
     padding-top: 0;
     padding-bottom: 0;
     align-self: center;
@@ -68,16 +68,16 @@
     cursor: pointer;
     &:hover,
     &.react-select__option--is-focused {
-      background-color: $green-primary;
+      background-color: $accessible-green;
       color: $dark-surface;
     }
     &.react-select__option--is-selected {
-      background-color: $green-primary;
+      background-color: $accessible-green;
       color: $dark-surface;
     }
   }
 
   .react-select__control--is-focused {
-    border-color: $green-primary;
+    border-color: $accessible-green;
   }
 }

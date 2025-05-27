@@ -12,7 +12,7 @@
 
   .form-title {
     text-align: center;
-    color: $accessible-green;
+    color: $green-light;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
@@ -35,7 +35,7 @@
     legend {
       font-size: 1.2rem;
       font-weight: bold;
-      color: $accessible-green;
+      color: $green-light;
       margin-bottom: 0rem;
       padding: 0 0.5rem;
     }
@@ -107,7 +107,7 @@
       }
 
       &:focus {
-        border-color: $accessible-green;
+        border-color: $green-light;
         outline: none;
       }
     }
@@ -116,7 +116,7 @@
       position: absolute;
       top: 1.2rem;
       left: 0.75rem;
-      color: $green-primary;
+      color: $green-light;
       font-size: 1rem;
       pointer-events: none;
       transition: all 0.2s ease;
@@ -129,7 +129,7 @@
       top: 0.2rem;
       left: 0.6rem;
       font-size: 0.75rem;
-      color: $accessible-green;
+      color: $green-light;
     }
   }
 

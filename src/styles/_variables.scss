@@ -1,6 +1,6 @@
 @use "sass:color";
 // Couleurs
-$green-primary: #2e7d32; // vert foncé accessible pour fond
+$accessible-green: #2e7d32; // vert foncé accessible pour fond
 $green-light: #66bb6a;   // vert clair complémentaire
 $dark-bg: #202123;
 $dark-surface: #2b2c2f;
@@ -9,8 +9,7 @@ $dark-border: #3c3d3f;
 $green-soft: #a5d6a7;  // fond vert clair
 $text-dark: #1a1a1a;   // texte foncé
 
-$accessible-green: #2e7d32;
-$accessible-hover: color.adjust($accessible-green, $lightness: -10%);
+$accessible-hover: color.adjust($green-light, $lightness: -10%);
 $accessible-text: white;
 
 

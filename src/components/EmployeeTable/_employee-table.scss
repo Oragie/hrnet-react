@@ -10,7 +10,7 @@
     .employee-table-searchinput {
       background-color: $dark-surface;
       color: $accessible-text;
-      border: 1px solid $accessible-green;
+      border: 1px solid $green-light;
       border-radius: $input-radius;
       padding: 0.5rem 1rem;
       font-size: 1rem;
@@ -29,7 +29,7 @@
     width: 100%;
     border-collapse: collapse;
     background-color: $dark-surface;
-    color: $accessible-green;
+    color: $green-light;
 
     th,
     td {
@@ -46,7 +46,7 @@
       color: $accessible-text;
       font-weight: bold;
       cursor: pointer;
-      border-bottom: 2px solid $accessible-green;
+      border-bottom: 2px solid $green-light;
       user-select: none;
 
       &:hover {
@@ -75,22 +75,22 @@
     select {
       background-color: $dark-surface;
       color: $accessible-text;
-      border: 1px solid $accessible-green;
+      border: 1px solid $green-light;
       border-radius: $input-radius;
       padding: 0.3rem 0.8rem;
     }
 
     button {
       background: none;
-      border: 1px solid $accessible-green;
-      color: $accessible-green;
+      border: 1px solid $green-light;
+      color: $green-light;
       border-radius: $input-radius;
       padding: 0.3rem 0.8rem;
       cursor: pointer;
       transition: background-color 0.2s;
 
       &:hover:not(:disabled) {
-        background-color: $accessible-green;
+        background-color: $green-light;
         color: $accessible-text;
       }
 

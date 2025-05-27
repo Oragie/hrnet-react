@@ -11,7 +11,7 @@
 
 .employee-list-title {
   text-align: center;
-  color: $accessible-green;
+  color: $green-light;
   font-size: 2rem;
   font-weight: bold;
   margin-top: 0;
@@ -31,7 +31,7 @@
   .employee-table-searchinput {
     padding: 0.5rem 1rem;
     border-radius: $input-radius;
-    border: 1px solid $accessible-green;
+    border: 1px solid $green-light;
     background: $dark-surface;
     color: $accessible-text;
     font-size: 1rem;
@@ -66,7 +66,7 @@
     background-color: $dark-bg;
     color: $accessible-text;
     font-weight: 600;
-    border-bottom: 2px solid $accessible-green;
+    border-bottom: 2px solid $green-light;
     cursor: pointer;
     user-select: none;
 
@@ -133,7 +133,7 @@
   select {
     background: $dark-surface;
     color: $accessible-text;
-    border: 1px solid $accessible-green;
+    border: 1px solid $green-light;
     border-radius: 4px;
     padding: 0.4rem 0.8rem;
     font-size: 1rem;
@@ -142,7 +142,7 @@
   button {
     background: transparent;
     border: none;
-    color: $accessible-green;
+    color: $green-light;
     font-size: 1.1rem;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
@@ -155,7 +155,7 @@
     }
 
     &:not(:disabled):hover {
-      background: $accessible-green;
+      background: $green-light;
       color: $accessible-text;
     }
   }

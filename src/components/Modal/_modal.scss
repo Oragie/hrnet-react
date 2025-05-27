@@ -59,7 +59,7 @@
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
-  background: $green-primary;
+  background: $accessible-green;
   border: none;
   border-radius: 8px;
   width: 2.2rem;
@@ -73,8 +73,8 @@
   justify-content: center;
   transition: background 0.2s, color 0.2s;
   &:hover {
-    background: color.adjust($green-primary, $lightness: -20%);
-    color: $green-primary;
+    background: color.adjust($accessible-green, $lightness: -20%);
+    color: $accessible-green;
   }
 }
 
@@ -90,7 +90,7 @@
   margin-top: auto; // Pousse le bouton en bas
   margin-bottom: -1rem;
   display: block;
-  background: $green-primary;
+  background: $accessible-green;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -100,7 +100,7 @@
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   &:hover {
-    background: color.adjust($green-primary, $lightness: -20%);
-    color: $green-primary;
+    background: color.adjust($accessible-green, $lightness: -20%);
+    color: $accessible-green;
   }
 }
